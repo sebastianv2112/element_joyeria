@@ -35,7 +35,17 @@
     color: var(--color-white);
     background-color: var(--color-gray-950);
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6,
+  nav, button, a,
+  label, th, legend {
     text-transform: uppercase;
+  }
+
+  p, span, li, td, dd, dt,
+  input, textarea, select {
+    text-transform: none;
   }
 
   ::selection {

@@ -88,7 +88,7 @@ export default function Products() {
             </div>
           </div>
           <button
-            onClick={() => setShowFilters(!showFilters)}
+            onClick={() => { setShowFilters(!showFilters); scrollToTabs() }}
             className="flex items-center gap-2 px-4 md:px-8 py-4 text-gray-400 hover:text-white transition-colors shrink-0 border-l border-white/5"
           >
             <FiSliders size={16} />

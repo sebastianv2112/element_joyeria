@@ -1,10 +1,47 @@
 import { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { IoLogoWhatsapp } from 'react-icons/io5'
 import { FiInfo, FiX } from 'react-icons/fi'
 import { formatPrice, getWhatsAppLink } from '../data/products.js'
 import { useProduct, useRelatedProducts } from '../hooks/useProducts.js'
+
+const loaderPhrases = [
+  'El estilo no se busca, se encuentra',
+  'Cada detalle cuenta una historia',
+  'Diseñado para quienes notan la diferencia',
+  'La elegancia está en lo sutil',
+  'Tu próxima pieza te espera',
+]
+
+function Loader() {
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex(prev => (prev + 1) % loaderPhrases.length)
+    }, 2000)
+    return () => clearInterval(interval)
+  }, [])
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center gap-8 bg-gray-950">
+      <div className="w-8 h-8 border border-white/20 border-t-white animate-spin" />
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={index}
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -8 }}
+          transition={{ duration: 0.4 }}
+          className="text-sm text-gray-500 tracking-wide text-center px-8"
+        >
+          {loaderPhrases[index]}
+        </motion.p>
+      </AnimatePresence>
+    </div>
+  )
+}
 
 function RelatedCard({ product }) {
   return (
@@ -36,7 +73,6 @@ function RelatedCard({ product }) {
 function BentoGallery({ images, name }) {
   return (
     <div className="grid grid-cols-2 gap-1 md:gap-2">
-      {/* Large main image */}
       <div className="col-span-2 aspect-[4/3] overflow-hidden bg-gray-800">
         <img
           src={images[0]}
@@ -44,7 +80,6 @@ function BentoGallery({ images, name }) {
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
         />
       </div>
-      {/* Secondary images */}
       {images.slice(1, 4).map((img, i) => (
         <div
           key={i}
@@ -81,7 +116,7 @@ function InfoSheet({ product, onClose }) {
         className="bg-gray-950 w-full md:max-w-lg md:rounded-lg border border-white/10 max-h-[80vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between p-4 border-b border-white/10 sticky top-0 bg-gray-950">
-          <h3 className="text-sm tracking-[0.15em] uppercase text-white">Detalles del producto</h3>
+          <h3 className="text-sm tracking-[0.15em] text-white">Detalles del producto</h3>
           <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
             <FiX size={20} />
           </button>
@@ -135,28 +170,32 @@ export default function ProductDetail() {
   const { products: relatedProducts } = useRelatedProducts(product?.id)
   const [showInfo, setShowInfo] = useState(false)
   const [showFixedBar, setShowFixedBar] = useState(false)
-  const ctaRef = useRef(null)
+  const mobileCta = useRef(null)
+  const desktopCta = useRef(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [slug])
 
   useEffect(() => {
+    const target = mobileCta.current || desktopCta.current
+    if (!target) return
     const observer = new IntersectionObserver(
       ([entry]) => setShowFixedBar(!entry.isIntersecting),
       { threshold: 0 }
     )
-    if (ctaRef.current) observer.observe(ctaRef.current)
+    observer.observe(target)
     return () => observer.disconnect()
-  }, [slug])
+  }, [slug, product])
 
-  if (!product) {
+  if (loading || !product) {
+    if (loading) return <Loader />
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-6 pt-24 bg-gray-950">
         <p className="text-sm text-gray-500 tracking-wide">Producto no encontrado</p>
         <Link
           to="/coleccion"
-          className="text-xs tracking-[0.2em] uppercase border-b border-white pb-0.5 hover:opacity-60 transition-opacity text-white"
+          className="text-xs tracking-[0.2em] border-b border-white pb-0.5 hover:opacity-60 transition-opacity text-white"
         >
           Volver a la colección
         </Link>
@@ -177,9 +216,9 @@ export default function ProductDetail() {
         </p>
       </div>
 
-      {/* Name + Price (visible at top on all screens) */}
-      <div className="px-4 md:px-8 pb-4">
-        <h1 className="text-2xl md:text-4xl font-light tracking-wide text-white">
+      {/* Mobile: Name + Price at top */}
+      <div className="md:hidden px-4 pb-4">
+        <h1 className="text-2xl font-light tracking-wide text-white">
           {product.name}
         </h1>
         <p className="text-lg text-gray-500 mt-2">
@@ -194,9 +233,16 @@ export default function ProductDetail() {
           <BentoGallery images={product.images} name={product.name} />
         </div>
 
-        {/* Right: Product info (2 cols on desktop, hidden on mobile until sheet) */}
+        {/* Right: Product info (desktop only) */}
         <div className="hidden md:flex md:col-span-2 p-8 md:p-12 flex-col justify-start sticky top-24 self-start">
-          <div className="w-12 h-px bg-white/30 mb-8" />
+          <h1 className="text-3xl font-light tracking-wide text-white">
+            {product.name}
+          </h1>
+          <p className="text-xl text-gray-500 mt-3">
+            {formatPrice(product.price)}
+          </p>
+
+          <div className="w-12 h-px bg-white/30 my-8" />
 
           <p className="text-sm text-gray-400 leading-relaxed">
             {product.description}
@@ -204,50 +250,50 @@ export default function ProductDetail() {
 
           <div className="mt-8 flex flex-col gap-3">
             <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-xs text-gray-500 tracking-wide uppercase">Material</span>
+              <span className="text-xs text-gray-500 tracking-wide">Material</span>
               <span className="text-xs text-white">{product.material}</span>
             </div>
             <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-xs text-gray-500 tracking-wide uppercase">Color</span>
+              <span className="text-xs text-gray-500 tracking-wide">Color</span>
               <span className="text-xs text-white">{product.color}</span>
             </div>
             <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-xs text-gray-500 tracking-wide uppercase">Tamaño</span>
+              <span className="text-xs text-gray-500 tracking-wide">Tamaño</span>
               <span className="text-xs text-white">{product.size}</span>
             </div>
             {product.country && (
               <div className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-xs text-gray-500 tracking-wide uppercase">Edición</span>
+                <span className="text-xs text-gray-500 tracking-wide">Edición</span>
                 <span className="text-xs text-white">Mundial 2026 — {product.country}</span>
               </div>
             )}
           </div>
 
           {/* Desktop CTA */}
-          <div className="mt-10" ref={ctaRef}>
+          <div className="mt-10" ref={desktopCta}>
             <a
               href={getWhatsAppLink(product)}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full bg-white text-black py-4 text-sm tracking-[0.2em] uppercase flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors duration-200"
+              className="w-full bg-white text-black py-4 text-sm tracking-[0.2em] flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors duration-200"
             >
               <IoLogoWhatsapp size={18} />
               Consultar por WhatsApp
             </a>
-            <p className="text-[10px] text-gray-400 tracking-wider uppercase text-center mt-4">
+            <p className="text-[10px] text-gray-400 tracking-wider text-center mt-4">
               Envío a todo Colombia
             </p>
           </div>
         </div>
       </div>
 
-      {/* Mobile: inline CTA (used for intersection observer) */}
-      <div className="md:hidden px-4 mt-6" ref={ctaRef}>
+      {/* Mobile: inline CTA */}
+      <div className="md:hidden px-4 mt-6" ref={mobileCta}>
         <a
           href={getWhatsAppLink(product)}
           target="_blank"
           rel="noopener noreferrer"
-          className="w-full bg-white text-black py-4 text-sm tracking-[0.2em] uppercase flex items-center justify-center gap-3"
+          className="w-full bg-white text-black py-4 text-sm tracking-[0.2em] flex items-center justify-center gap-3"
         >
           <IoLogoWhatsapp size={18} />
           Consultar por WhatsApp
@@ -260,20 +306,20 @@ export default function ProductDetail() {
         <p className="text-sm text-gray-400 leading-relaxed mb-6">{product.description}</p>
         <div className="flex flex-col gap-3">
           <div className="flex justify-between border-b border-white/5 pb-2">
-            <span className="text-xs text-gray-500 tracking-wide uppercase">Material</span>
+            <span className="text-xs text-gray-500 tracking-wide">Material</span>
             <span className="text-xs text-white">{product.material}</span>
           </div>
           <div className="flex justify-between border-b border-white/5 pb-2">
-            <span className="text-xs text-gray-500 tracking-wide uppercase">Color</span>
+            <span className="text-xs text-gray-500 tracking-wide">Color</span>
             <span className="text-xs text-white">{product.color}</span>
           </div>
           <div className="flex justify-between border-b border-white/5 pb-2">
-            <span className="text-xs text-gray-500 tracking-wide uppercase">Tamaño</span>
+            <span className="text-xs text-gray-500 tracking-wide">Tamaño</span>
             <span className="text-xs text-white">{product.size}</span>
           </div>
           {product.country && (
             <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-xs text-gray-500 tracking-wide uppercase">Edición</span>
+              <span className="text-xs text-gray-500 tracking-wide">Edición</span>
               <span className="text-xs text-white">Mundial 2026 — {product.country}</span>
             </div>
           )}
@@ -282,7 +328,7 @@ export default function ProductDetail() {
 
       {/* Related products */}
       <section className="py-16 px-4 md:px-8">
-        <p className="text-xs tracking-[0.2em] uppercase text-white mb-8">
+        <p className="text-xs tracking-[0.2em] text-white mb-8">
           También te puede gustar
         </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
@@ -303,7 +349,7 @@ export default function ProductDetail() {
             href={getWhatsAppLink(product)}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-1 bg-white text-black py-3 text-xs tracking-[0.15em] uppercase flex items-center justify-center gap-2"
+            className="flex-1 bg-white text-black py-3 text-xs tracking-[0.15em] flex items-center justify-center gap-2"
           >
             <IoLogoWhatsapp size={16} />
             Consultar
