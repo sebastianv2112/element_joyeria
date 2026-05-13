@@ -14,7 +14,7 @@ export default function Products() {
   return (
     <div className="min-h-screen bg-gray-950">
       {/* Page Header */}
-      <div className="pt-32 pb-16 text-center">
+      <div className="pt-32 pb-16 text-center px-4">
         <h1 className="text-4xl md:text-5xl font-light tracking-[0.15em] text-white">
           Colección
         </h1>
