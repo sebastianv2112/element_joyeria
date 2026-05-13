@@ -25,6 +25,28 @@ export function useProducts() {
   return { products, loading }
 }
 
+export function useAllProducts() {
+  const [products, setProducts] = useState([...staticProducts, ...staticWorldCup])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetch() {
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('id')
+
+      if (!error && data?.length > 0) {
+        setProducts(data)
+      }
+      setLoading(false)
+    }
+    fetch()
+  }, [])
+
+  return { products, loading }
+}
+
 export function useWorldCupProducts() {
   const [products, setProducts] = useState(staticWorldCup)
   const [loading, setLoading] = useState(true)

@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { IoLogoWhatsapp } from "react-icons/io5";
 
 const WA_URL =
-  "https://wa.me/573001234567?text=Hola%2C%20quiero%20información%20sobre%20sus%20brazaletes";
+  "https://wa.me/573058544529?text=Hola%2C%20quiero%20información%20sobre%20sus%20brazaletes";
 
 export default function WhatsAppButton() {
   const { pathname } = useLocation();

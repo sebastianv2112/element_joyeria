@@ -1,17 +1,26 @@
-import { useState, useMemo, useRef } from 'react'
-import { Link } from 'react-router-dom'
+import { useState, useMemo, useRef, useEffect } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FiSliders, FiX } from 'react-icons/fi'
+import { FiSliders, FiX, FiSearch } from 'react-icons/fi'
 import { categories, filterOptions, formatPrice } from '../data/products.js'
-import { useProducts } from '../hooks/useProducts.js'
+import { useAllProducts } from '../hooks/useProducts.js'
 
 export default function Products() {
-  const { products } = useProducts()
+  const { products } = useAllProducts()
+  const [searchParams] = useSearchParams()
   const [activeCategory, setActiveCategory] = useState('todos')
   const [filters, setFilters] = useState({ size: 'todos', color: 'todos', material: 'todos' })
   const [showFilters, setShowFilters] = useState(false)
+  const [search, setSearch] = useState('')
   const gridRef = useRef(null)
   const tabBarRef = useRef(null)
+
+  useEffect(() => {
+    const cat = searchParams.get('cat')
+    if (cat && categories.some(c => c.id === cat)) {
+      setActiveCategory(cat)
+    }
+  }, [searchParams])
 
   const activeFilterCount = Object.values(filters).filter(v => v !== 'todos').length
 
@@ -40,6 +49,14 @@ export default function Products() {
 
   const filtered = useMemo(() => {
     let result = products
+    if (search.trim()) {
+      const q = search.toLowerCase()
+      result = result.filter(p =>
+        p.name.toLowerCase().includes(q) ||
+        p.description.toLowerCase().includes(q) ||
+        p.material.toLowerCase().includes(q)
+      )
+    }
     if (activeCategory !== 'todos') {
       result = result.filter((p) => p.category === activeCategory)
     }
@@ -53,7 +70,7 @@ export default function Products() {
       result = result.filter((p) => p.material.includes(filters.material))
     }
     return result
-  }, [activeCategory, filters])
+  }, [activeCategory, filters, search, products])
 
   return (
     <div className="min-h-screen bg-gray-950">
@@ -65,6 +82,26 @@ export default function Products() {
         <p className="mt-3 text-gray-500 text-sm tracking-wide">
           Brazaletes diseñados con intención
         </p>
+
+        {/* Search */}
+        <div className="mt-8 max-w-md mx-auto relative">
+          <FiSearch size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500" />
+          <input
+            type="text"
+            value={search}
+            onChange={e => setSearch(e.target.value)}
+            placeholder="Buscar brazaletes..."
+            className="w-full bg-gray-900 border border-white/10 text-white text-sm pl-11 pr-4 py-3 placeholder-gray-600 focus:outline-none focus:border-white/30 transition-colors"
+          />
+          {search && (
+            <button
+              onClick={() => setSearch('')}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-white transition-colors"
+            >
+              <FiX size={16} />
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Category Filter Bar */}
@@ -241,6 +278,7 @@ export default function Products() {
                       <img
                         src={product.images[0]}
                         alt={product.name}
+                        loading="lazy"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                     </div>

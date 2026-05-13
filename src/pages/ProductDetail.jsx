@@ -2,9 +2,10 @@ import { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { IoLogoWhatsapp } from 'react-icons/io5'
-import { FiInfo, FiX } from 'react-icons/fi'
+import { FiInfo, FiX, FiShare2, FiMaximize2 } from 'react-icons/fi'
 import { formatPrice, getWhatsAppLink } from '../data/products.js'
 import { useProduct, useRelatedProducts } from '../hooks/useProducts.js'
+import SizeGuide from '../components/SizeGuide.jsx'
 
 const loaderPhrases = [
   'El estilo no se busca, se encuentra',
@@ -56,6 +57,7 @@ function RelatedCard({ product }) {
           <img
             src={product.images[0]}
             alt={product.name}
+            loading="lazy"
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </div>
@@ -77,6 +79,7 @@ function BentoGallery({ images, name }) {
         <img
           src={images[0]}
           alt={name}
+          loading="lazy"
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
         />
       </div>
@@ -90,6 +93,7 @@ function BentoGallery({ images, name }) {
           <img
             src={img}
             alt={`${name} - ${i + 2}`}
+            loading="lazy"
             className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
           />
         </div>
@@ -169,7 +173,22 @@ export default function ProductDetail() {
   const { product, loading } = useProduct(slug)
   const { products: relatedProducts } = useRelatedProducts(product?.id)
   const [showInfo, setShowInfo] = useState(false)
+  const [showSizeGuide, setShowSizeGuide] = useState(false)
   const [showFixedBar, setShowFixedBar] = useState(false)
+  const [copied, setCopied] = useState(false)
+
+  const handleShare = async () => {
+    const url = window.location.href
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: product.name, text: product.description, url })
+      } catch {}
+    } else {
+      await navigator.clipboard.writeText(url)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    }
+  }
   const mobileCta = useRef(null)
   const desktopCta = useRef(null)
 
@@ -269,8 +288,26 @@ export default function ProductDetail() {
             )}
           </div>
 
+          {/* Size guide + Share */}
+          <div className="mt-6 flex gap-4">
+            <button
+              onClick={() => setShowSizeGuide(true)}
+              className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors tracking-wider"
+            >
+              <FiMaximize2 size={14} />
+              Guía de tallas
+            </button>
+            <button
+              onClick={handleShare}
+              className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors tracking-wider"
+            >
+              <FiShare2 size={14} />
+              {copied ? 'Enlace copiado' : 'Compartir'}
+            </button>
+          </div>
+
           {/* Desktop CTA */}
-          <div className="mt-10" ref={desktopCta}>
+          <div className="mt-8" ref={desktopCta}>
             <a
               href={getWhatsAppLink(product)}
               target="_blank"
@@ -298,6 +335,24 @@ export default function ProductDetail() {
           <IoLogoWhatsapp size={18} />
           Consultar por WhatsApp
         </a>
+      </div>
+
+      {/* Mobile: Share + Size guide */}
+      <div className="md:hidden px-4 pt-6 flex gap-4">
+        <button
+          onClick={() => setShowSizeGuide(true)}
+          className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors tracking-wider"
+        >
+          <FiMaximize2 size={14} />
+          Guía de tallas
+        </button>
+        <button
+          onClick={handleShare}
+          className="flex items-center gap-2 text-xs text-gray-400 hover:text-white transition-colors tracking-wider"
+        >
+          <FiShare2 size={14} />
+          {copied ? 'Enlace copiado' : 'Compartir'}
+        </button>
       </div>
 
       {/* Mobile: Product details section */}
@@ -364,9 +419,18 @@ export default function ProductDetail() {
       )}
 
       {/* Info Sheet Modal */}
-      {showInfo && (
-        <InfoSheet product={product} onClose={() => setShowInfo(false)} />
-      )}
+      <AnimatePresence>
+        {showInfo && (
+          <InfoSheet product={product} onClose={() => setShowInfo(false)} />
+        )}
+      </AnimatePresence>
+
+      {/* Size Guide Modal */}
+      <AnimatePresence>
+        {showSizeGuide && (
+          <SizeGuide onClose={() => setShowSizeGuide(false)} />
+        )}
+      </AnimatePresence>
     </div>
   )
 }
