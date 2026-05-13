@@ -198,7 +198,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeOut' }}
-            className="text-6xl md:text-8xl lg:text-9xl font-light tracking-[0.3em] text-white uppercase"
+            className="text-4xl md:text-8xl lg:text-9xl font-light tracking-[0.2em] md:tracking-[0.3em] text-white uppercase"
           >
             ELEMENT
           </motion.h1>
