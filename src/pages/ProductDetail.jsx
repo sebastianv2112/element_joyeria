@@ -120,8 +120,11 @@ function InfoSheet({ product, onClose }) {
         className="bg-gray-950 w-full md:max-w-lg md:rounded-lg border border-white/10 max-h-[80vh] overflow-y-auto"
       >
         <div className="flex items-center justify-between p-4 border-b border-white/10 sticky top-0 bg-gray-950">
-          <h3 className="text-sm tracking-[0.15em] text-white">Detalles del producto</h3>
-          <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
+          <div>
+            <h3 className="text-lg font-light tracking-wide text-white">{product.name}</h3>
+            <p className="text-sm text-gray-400 mt-0.5">{formatPrice(product.price)}</p>
+          </div>
+          <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors shrink-0 ml-4">
             <FiX size={20} />
           </button>
         </div>
@@ -129,7 +132,7 @@ function InfoSheet({ product, onClose }) {
         <div className="p-6 flex flex-col gap-6">
           <div>
             <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 mb-2">Descripción</p>
-            <p className="text-sm text-gray-300 leading-relaxed">{product.description}</p>
+            <p className="text-base text-gray-300 leading-relaxed">{product.description}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
