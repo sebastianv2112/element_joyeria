@@ -69,7 +69,7 @@ function WorldCupCard({ product, index }) {
       <Link to={`/producto/${product.slug}`} className="block group">
         <div className="aspect-[3/4] overflow-hidden bg-gray-800 relative">
           <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
-            <span className="text-[10px] tracking-wider uppercase bg-white text-black px-2 py-1 font-medium">
+            <span className="text-xs tracking-wider uppercase bg-white text-black px-2.5 py-1 font-medium">
               {product.countryCode}
             </span>
           </div>

@@ -12,21 +12,21 @@ export default function Footer() {
             <FiTruck size={20} className="text-white/40 shrink-0" />
             <div>
               <p className="text-xs tracking-wider text-white">Envío a todo Colombia</p>
-              <p className="text-[11px] text-white/40 mt-0.5">Entrega en 3-5 días hábiles</p>
+              <p className="text-xs text-white/40 mt-0.5">Entrega en 3-5 días hábiles</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <FiShield size={20} className="text-white/40 shrink-0" />
             <div>
               <p className="text-xs tracking-wider text-white">Garantía de calidad</p>
-              <p className="text-[11px] text-white/40 mt-0.5">Acero inoxidable resistente al agua</p>
+              <p className="text-xs text-white/40 mt-0.5">Acero inoxidable resistente al agua</p>
             </div>
           </div>
           <div className="flex items-center gap-4">
             <FiCreditCard size={20} className="text-white/40 shrink-0" />
             <div>
               <p className="text-xs tracking-wider text-white">Pago seguro</p>
-              <p className="text-[11px] text-white/40 mt-0.5">Transferencia, Nequi o Daviplata</p>
+              <p className="text-xs text-white/40 mt-0.5">Transferencia, Nequi o Daviplata</p>
             </div>
           </div>
         </div>

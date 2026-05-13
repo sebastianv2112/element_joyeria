@@ -62,10 +62,10 @@ function RelatedCard({ product }) {
           />
         </div>
         <div className="pt-3 pb-1">
-          <p className="text-sm font-light text-white group-hover:underline underline-offset-2 transition-all duration-200">
+          <p className="text-base md:text-lg font-light text-white group-hover:underline underline-offset-2 transition-all duration-200">
             {product.name}
           </p>
-          <p className="text-xs text-gray-500 mt-1">{formatPrice(product.price)}</p>
+          <p className="text-sm text-gray-500 mt-1">{formatPrice(product.price)}</p>
         </div>
       </Link>
     </motion.div>
@@ -320,7 +320,7 @@ export default function ProductDetail() {
               <IoLogoWhatsapp size={18} />
               Consultar por WhatsApp
             </a>
-            <p className="text-[10px] text-gray-400 tracking-wider text-center mt-4">
+            <p className="text-xs text-gray-400 tracking-wider text-center mt-4">
               Envío a todo Colombia
             </p>
           </div>

@@ -271,7 +271,7 @@ export default function Products() {
                   >
                     <div className="aspect-[3/4] overflow-hidden bg-gray-800 relative">
                       {product.new && (
-                        <span className="absolute top-2 left-2 z-10 text-[10px] tracking-wider uppercase bg-white text-black px-2 py-1">
+                        <span className="absolute top-3 left-3 z-10 text-xs tracking-wider uppercase bg-white text-black px-2.5 py-1">
                           Nuevo
                         </span>
                       )}

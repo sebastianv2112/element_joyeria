@@ -64,11 +64,11 @@ export default function SizeGuide({ onClose }) {
                       height: s.label === 'S' ? 48 : s.label === 'M' ? 56 : 64,
                     }}
                   />
-                  <span className="text-[10px] text-gray-400">{s.label}</span>
+                  <span className="text-xs text-gray-400">{s.label}</span>
                 </div>
               ))}
             </div>
-            <p className="text-[10px] text-gray-500 tracking-wider text-center mt-1">
+            <p className="text-xs text-gray-500 tracking-wider text-center mt-1">
               Si estás entre dos tallas, elige la más grande
             </p>
           </div>

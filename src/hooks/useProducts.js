@@ -2,6 +2,14 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
 import staticProducts, { worldCupProducts as staticWorldCup } from '../data/products'
 
+// Map Supabase snake_case fields to camelCase used by components
+function mapProduct(p) {
+  return {
+    ...p,
+    countryCode: p.countryCode || p.country_code || null,
+  }
+}
+
 export function useProducts() {
   const [products, setProducts] = useState(staticProducts)
   const [loading, setLoading] = useState(true)
@@ -15,7 +23,7 @@ export function useProducts() {
         .order('id')
 
       if (!error && data?.length > 0) {
-        setProducts(data)
+        setProducts(data.map(mapProduct))
       }
       setLoading(false)
     }
@@ -37,7 +45,7 @@ export function useAllProducts() {
         .order('id')
 
       if (!error && data?.length > 0) {
-        setProducts(data)
+        setProducts(data.map(mapProduct))
       }
       setLoading(false)
     }
@@ -60,7 +68,7 @@ export function useWorldCupProducts() {
         .order('id')
 
       if (!error && data?.length > 0) {
-        setProducts(data)
+        setProducts(data.map(mapProduct))
       }
       setLoading(false)
     }
@@ -83,7 +91,7 @@ export function useProduct(slug) {
         .single()
 
       if (!error && data) {
-        setProduct(data)
+        setProduct(mapProduct(data))
       } else {
         const all = [...staticProducts, ...staticWorldCup]
         setProduct(all.find(p => p.slug === slug) || null)
@@ -109,7 +117,7 @@ export function useRelatedProducts(productId) {
         .limit(4)
 
       if (!error && data?.length > 0) {
-        const shuffled = [...data].sort(() => Math.random() - 0.5)
+        const shuffled = [...data.map(mapProduct)].sort(() => Math.random() - 0.5)
         setProducts(shuffled.slice(0, 4))
       } else {
         const all = [...staticProducts, ...staticWorldCup]
