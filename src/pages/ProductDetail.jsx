@@ -263,27 +263,27 @@ export default function ProductDetail() {
 
           <div className="w-12 h-px bg-white/30 my-8" />
 
-          <p className="text-sm text-gray-400 leading-relaxed">
+          <p className="text-base text-gray-400 leading-relaxed">
             {product.description}
           </p>
 
           <div className="mt-8 flex flex-col gap-3">
             <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-xs text-gray-500 tracking-wide">Material</span>
-              <span className="text-xs text-white">{product.material}</span>
+              <span className="text-sm text-gray-500 tracking-wide">Material</span>
+              <span className="text-sm text-white">{product.material}</span>
             </div>
             <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-xs text-gray-500 tracking-wide">Color</span>
-              <span className="text-xs text-white">{product.color}</span>
+              <span className="text-sm text-gray-500 tracking-wide">Color</span>
+              <span className="text-sm text-white">{product.color}</span>
             </div>
             <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-xs text-gray-500 tracking-wide">Tamaño</span>
-              <span className="text-xs text-white">{product.size}</span>
+              <span className="text-sm text-gray-500 tracking-wide">Tamaño</span>
+              <span className="text-sm text-white">{product.size}</span>
             </div>
             {product.country && (
               <div className="flex justify-between border-b border-white/5 pb-2">
-                <span className="text-xs text-gray-500 tracking-wide">Edición</span>
-                <span className="text-xs text-white">Mundial 2026 — {product.country}</span>
+                <span className="text-sm text-gray-500 tracking-wide">Edición</span>
+                <span className="text-sm text-white">Mundial 2026 — {product.country}</span>
               </div>
             )}
           </div>
@@ -358,24 +358,24 @@ export default function ProductDetail() {
       {/* Mobile: Product details section */}
       <div className="md:hidden px-4 py-8">
         <div className="w-12 h-px bg-white/30 mb-6" />
-        <p className="text-sm text-gray-400 leading-relaxed mb-6">{product.description}</p>
+        <p className="text-base text-gray-400 leading-relaxed mb-6">{product.description}</p>
         <div className="flex flex-col gap-3">
           <div className="flex justify-between border-b border-white/5 pb-2">
-            <span className="text-xs text-gray-500 tracking-wide">Material</span>
-            <span className="text-xs text-white">{product.material}</span>
+            <span className="text-sm text-gray-500 tracking-wide">Material</span>
+            <span className="text-sm text-white">{product.material}</span>
           </div>
           <div className="flex justify-between border-b border-white/5 pb-2">
-            <span className="text-xs text-gray-500 tracking-wide">Color</span>
-            <span className="text-xs text-white">{product.color}</span>
+            <span className="text-sm text-gray-500 tracking-wide">Color</span>
+            <span className="text-sm text-white">{product.color}</span>
           </div>
           <div className="flex justify-between border-b border-white/5 pb-2">
-            <span className="text-xs text-gray-500 tracking-wide">Tamaño</span>
-            <span className="text-xs text-white">{product.size}</span>
+            <span className="text-sm text-gray-500 tracking-wide">Tamaño</span>
+            <span className="text-sm text-white">{product.size}</span>
           </div>
           {product.country && (
             <div className="flex justify-between border-b border-white/5 pb-2">
-              <span className="text-xs text-gray-500 tracking-wide">Edición</span>
-              <span className="text-xs text-white">Mundial 2026 — {product.country}</span>
+              <span className="text-sm text-gray-500 tracking-wide">Edición</span>
+              <span className="text-sm text-white">Mundial 2026 — {product.country}</span>
             </div>
           )}
         </div>

@@ -55,8 +55,8 @@ function ProductCard({ product, index }) {
           />
         </div>
         <div className="pt-3 pb-1">
-          <p className="text-sm font-light text-white">{product.name}</p>
-          <p className="text-sm text-gray-500 mt-0.5">{formatPrice(product.price)}</p>
+          <p className="text-base md:text-lg font-light text-white">{product.name}</p>
+          <p className="text-sm text-gray-400 mt-0.5">{formatPrice(product.price)}</p>
         </div>
       </Link>
     </motion.div>
@@ -85,8 +85,8 @@ function WorldCupCard({ product, index }) {
           />
         </div>
         <div className="pt-3 pb-1">
-          <p className="text-sm font-light text-white">{product.name}</p>
-          <p className="text-sm text-gray-500 mt-0.5">{formatPrice(product.price)}</p>
+          <p className="text-base md:text-lg font-light text-white">{product.name}</p>
+          <p className="text-sm text-gray-400 mt-0.5">{formatPrice(product.price)}</p>
         </div>
       </Link>
     </div>

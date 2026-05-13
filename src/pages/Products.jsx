@@ -283,10 +283,10 @@ export default function Products() {
                       />
                     </div>
                     <div className="p-3">
-                      <p className="text-sm font-light text-white group-hover:underline underline-offset-2 transition-all duration-200">
+                      <p className="text-base md:text-lg font-light text-white group-hover:underline underline-offset-2 transition-all duration-200">
                         {product.name}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1">
+                      <p className="text-sm text-gray-400 mt-1">
                         {formatPrice(product.price)}
                       </p>
                     </div>
