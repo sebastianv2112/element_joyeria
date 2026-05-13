@@ -65,17 +65,8 @@ function ProductCard({ product, index }) {
 }
 
 function WorldCupCard({ product, index }) {
-  const ref = useRef(null)
-  const inView = useInView(ref, { once: true, amount: 0.2 })
-
   return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 40 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.1 }}
-      className="min-w-[280px] md:min-w-[320px] snap-start"
-    >
+    <div className="min-w-[280px] md:min-w-[320px] snap-start">
       <Link to={`/producto/${product.slug}`} className="block group">
         <div className="aspect-[3/4] overflow-hidden bg-gray-800 relative">
           <div className="absolute top-3 left-3 z-10 flex items-center gap-2">
@@ -98,7 +89,7 @@ function WorldCupCard({ product, index }) {
           <p className="text-sm text-gray-500 mt-0.5">{formatPrice(product.price)}</p>
         </div>
       </Link>
-    </motion.div>
+    </div>
   )
 }
 
