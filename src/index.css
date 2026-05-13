@@ -14,8 +14,7 @@
   --color-gray-800: #262626;
   --color-gray-900: #171717;
   --color-gray-950: #0a0a0a;
-  --font-sans: "Inter", "Helvetica Neue", Arial, sans-serif;
-  --font-display: "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Oswald", "Helvetica Neue", Arial, sans-serif;
 }
 
 @layer base {
@@ -36,6 +35,7 @@
     color: var(--color-white);
     background-color: var(--color-gray-950);
     overflow-x: hidden;
+    text-transform: uppercase;
   }
 
   ::selection {
