@@ -394,29 +394,27 @@ export default function ProductDetail() {
       </section>
 
       {/* Mobile Fixed Bottom Bar */}
-      {showFixedBar && (
-        <motion.div
-          initial={{ y: 100 }}
-          animate={{ y: 0 }}
-          className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-gray-950/95 backdrop-blur-md border-t border-white/10 px-4 py-3 flex gap-2"
+      <div
+        className={`fixed bottom-0 left-0 right-0 z-50 md:hidden bg-gray-950/95 backdrop-blur-md border-t border-white/10 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] flex gap-2 transition-transform duration-300 ease-out ${
+          showFixedBar ? 'translate-y-0' : 'translate-y-full'
+        }`}
+      >
+        <a
+          href={getWhatsAppLink(product)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-1 bg-white text-black py-3 text-xs tracking-[0.15em] flex items-center justify-center gap-2"
         >
-          <a
-            href={getWhatsAppLink(product)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 bg-white text-black py-3 text-xs tracking-[0.15em] flex items-center justify-center gap-2"
-          >
-            <IoLogoWhatsapp size={16} />
-            Consultar
-          </a>
-          <button
-            onClick={() => setShowInfo(true)}
-            className="w-12 flex items-center justify-center border border-white/20 text-white"
-          >
-            <FiInfo size={18} />
-          </button>
-        </motion.div>
-      )}
+          <IoLogoWhatsapp size={16} />
+          Consultar
+        </a>
+        <button
+          onClick={() => setShowInfo(true)}
+          className="w-12 flex items-center justify-center border border-white/20 text-white"
+        >
+          <FiInfo size={18} />
+        </button>
+      </div>
 
       {/* Info Sheet Modal */}
       <AnimatePresence>
