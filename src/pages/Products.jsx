@@ -11,20 +11,31 @@ export default function Products() {
   const [filters, setFilters] = useState({ size: 'todos', color: 'todos', material: 'todos' })
   const [showFilters, setShowFilters] = useState(false)
   const gridRef = useRef(null)
+  const tabBarRef = useRef(null)
 
   const activeFilterCount = Object.values(filters).filter(v => v !== 'todos').length
 
+  const scrollToTabs = () => {
+    if (tabBarRef.current) {
+      const navHeight = 64
+      const top = tabBarRef.current.getBoundingClientRect().top + window.scrollY - navHeight
+      window.scrollTo({ top, behavior: 'smooth' })
+    }
+  }
+
   const handleCategoryChange = (catId) => {
     setActiveCategory(catId)
-    window.scrollTo({ top: 0, behavior: 'instant' })
+    scrollToTabs()
   }
 
   const handleFilterChange = (key, value) => {
     setFilters(prev => ({ ...prev, [key]: value }))
+    scrollToTabs()
   }
 
   const clearFilters = () => {
     setFilters({ size: 'todos', color: 'todos', material: 'todos' })
+    scrollToTabs()
   }
 
   const filtered = useMemo(() => {
@@ -57,7 +68,7 @@ export default function Products() {
       </div>
 
       {/* Category Filter Bar */}
-      <div className="sticky top-16 z-40 bg-gray-950/80 backdrop-blur-md border-b border-white/5">
+      <div ref={tabBarRef} className="sticky top-16 z-40 bg-gray-950/80 backdrop-blur-md border-b border-white/5">
         <div className="flex items-center">
           <div className="overflow-x-auto scrollbar-none flex-1">
             <div className="flex items-center gap-1 px-4 md:px-8 lg:px-16 py-4 min-w-max">
