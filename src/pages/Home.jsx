@@ -133,7 +133,7 @@ function WorldCupSection() {
       </div>
 
       <div className="pl-6 md:pl-12">
-        <div className="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-6 scrollbar-none pr-6">
+        <div className="flex gap-3 overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-6 scrollbar-none pr-6 touch-pan-x">
           {worldCupProducts.map((product, index) => (
             <WorldCupCard key={product.id} product={product} index={index} />
           ))}
