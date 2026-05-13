@@ -5,6 +5,7 @@ const products = [
     slug: "cadena-minimal",
     price: 89000,
     category: "cadenas",
+    size: "M",
     description: "Brazalete de cadena minimalista en acero inoxidable con acabado pulido. Diseñado para quienes buscan elegancia en la simplicidad.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -12,7 +13,9 @@ const products = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
-      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
+      "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
     ],
   },
   {
@@ -21,6 +24,7 @@ const products = [
     slug: "eslabon-negro",
     price: 125000,
     category: "eslabones",
+    size: "L",
     description: "Brazalete de eslabones gruesos con baño en negro mate. Una pieza audaz que define tu estilo con carácter.",
     material: "Acero con baño negro",
     color: "Negro",
@@ -28,7 +32,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
-      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
     ],
   },
   {
@@ -37,6 +43,7 @@ const products = [
     slug: "bangle-pulido",
     price: 75000,
     category: "bangles",
+    size: "S",
     description: "Bangle rígido con acabado espejo. Ligero y cómodo para uso diario, refleja la luz con cada movimiento.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -44,7 +51,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
     ],
   },
   {
@@ -53,6 +62,7 @@ const products = [
     slug: "cordon-trenzado",
     price: 65000,
     category: "cordon",
+    size: "M",
     description: "Brazalete de cordón de cuero trenzado con cierre magnético en acero. La fusión perfecta entre lo natural y lo moderno.",
     material: "Cuero y Acero",
     color: "Negro",
@@ -60,7 +70,9 @@ const products = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
-      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
+      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
     ],
   },
   {
@@ -69,6 +81,7 @@ const products = [
     slug: "malla-milanese",
     price: 145000,
     category: "mallas",
+    size: "M",
     description: "Brazalete de malla milanesa tejida a máquina. Textura sofisticada que se adapta perfectamente a tu muñeca.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -76,7 +89,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
-      "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
     ],
   },
   {
@@ -85,6 +100,7 @@ const products = [
     slug: "cuff-geometrico",
     price: 110000,
     category: "cuffs",
+    size: "L",
     description: "Cuff abierto con grabado geométrico láser. Una declaración de estilo contemporáneo en tu muñeca.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -92,7 +108,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
     ],
   },
   {
@@ -101,6 +119,7 @@ const products = [
     slug: "doble-cadena",
     price: 135000,
     category: "cadenas",
+    size: "M",
     description: "Brazalete de doble cadena con diferentes texturas entrelazadas. Profundidad visual en cada eslabón.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -108,7 +127,9 @@ const products = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
-      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
+      "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
     ],
   },
   {
@@ -117,6 +138,7 @@ const products = [
     slug: "tensor-mate",
     price: 95000,
     category: "tensores",
+    size: "S",
     description: "Brazalete tensor con acabado mate satinado. Ajuste perfecto y diseño que desafía la gravedad.",
     material: "Acero Inoxidable",
     color: "Negro",
@@ -124,7 +146,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
-      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
     ],
   },
   {
@@ -133,6 +157,7 @@ const products = [
     slug: "cuero-liso",
     price: 55000,
     category: "cordon",
+    size: "L",
     description: "Brazalete de cuero liso con placa de acero personalizable. Esencia y simplicidad en estado puro.",
     material: "Cuero y Acero",
     color: "Negro",
@@ -140,7 +165,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
-      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
+      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
     ],
   },
   {
@@ -149,6 +176,7 @@ const products = [
     slug: "eslabon-cubano",
     price: 165000,
     category: "eslabones",
+    size: "L",
     description: "Cadena cubana gruesa con cierre de seguridad. Presencia y peso que se siente en cada gesto.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -156,7 +184,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
+      "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
     ],
   },
   {
@@ -165,6 +195,7 @@ const products = [
     slug: "bangle-abierto",
     price: 85000,
     category: "bangles",
+    size: "M",
     description: "Bangle abierto con terminaciones esféricas pulidas. Elegancia clásica con un toque moderno.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -172,7 +203,9 @@ const products = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
     ],
   },
   {
@@ -181,6 +214,7 @@ const products = [
     slug: "malla-negra",
     price: 155000,
     category: "mallas",
+    size: "M",
     description: "Malla milanesa con tratamiento PVD negro. Sofisticación oscura para quien busca lo extraordinario.",
     material: "Acero con PVD Negro",
     color: "Negro",
@@ -188,7 +222,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
-      "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
     ],
   },
   {
@@ -197,6 +233,7 @@ const products = [
     slug: "cuff-ancho",
     price: 175000,
     category: "cuffs",
+    size: "L",
     description: "Cuff ancho con textura martillada artesanal. Cada pieza es única, como quien la lleva.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -204,7 +241,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
-      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
     ],
   },
   {
@@ -213,6 +252,7 @@ const products = [
     slug: "tensor-doble",
     price: 120000,
     category: "tensores",
+    size: "M",
     description: "Brazalete tensor con doble cable de acero y centro giratorio. Movimiento constante, estilo permanente.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -220,7 +260,9 @@ const products = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
-      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
     ],
   },
   {
@@ -229,6 +271,7 @@ const products = [
     slug: "cadena-fina",
     price: 69000,
     category: "cadenas",
+    size: "S",
     description: "Cadena fina de eslabones delicados. Para quienes entienden que menos es más.",
     material: "Acero Inoxidable",
     color: "Plata",
@@ -236,7 +279,9 @@ const products = [
     new: false,
     images: [
       "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
-      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
     ],
   },
 ];
@@ -249,6 +294,7 @@ export const worldCupProducts = [
     price: 135000,
     category: "mundial",
     collection: "mundial",
+    size: "M",
     country: "Colombia",
     countryCode: "COL",
     description: "Brazalete edición especial Mundial 2026. Tres hilos de acero trenzados con baño en amarillo, azul y rojo. Lleva la pasión tricolor en tu muñeca.",
@@ -258,6 +304,9 @@ export const worldCupProducts = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
     ],
   },
   {
@@ -267,6 +316,7 @@ export const worldCupProducts = [
     price: 145000,
     category: "mundial",
     collection: "mundial",
+    size: "M",
     country: "Brasil",
     countryCode: "BRA",
     description: "Edición Mundial 2026. Eslabones bañados en oro con detalles verdes en el cierre. La garra brasileña convertida en joyería.",
@@ -276,6 +326,9 @@ export const worldCupProducts = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
+      "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
     ],
   },
   {
@@ -285,6 +338,7 @@ export const worldCupProducts = [
     price: 155000,
     category: "mundial",
     collection: "mundial",
+    size: "L",
     country: "Argentina",
     countryCode: "ARG",
     description: "Edición Mundial 2026. Cadena de eslabones finos alternando plata pulida y celeste mate. El campeón del mundo en tu muñeca.",
@@ -294,6 +348,9 @@ export const worldCupProducts = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
+      "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
     ],
   },
   {
@@ -303,6 +360,7 @@ export const worldCupProducts = [
     price: 140000,
     category: "mundial",
     collection: "mundial",
+    size: "M",
     country: "México",
     countryCode: "MEX",
     description: "Edición Mundial 2026. Cuff negro con grabado azteca y detalles en verde y rojo. El poder de una nación en una pieza.",
@@ -312,6 +370,9 @@ export const worldCupProducts = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
     ],
   },
   {
@@ -321,6 +382,7 @@ export const worldCupProducts = [
     price: 150000,
     category: "mundial",
     collection: "mundial",
+    size: "L",
     country: "Estados Unidos",
     countryCode: "USA",
     description: "Edición Mundial 2026. Tensor con acabado azul profundo y estrellas grabadas. Sede del mundial, sede del estilo.",
@@ -330,6 +392,9 @@ export const worldCupProducts = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
+      "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=800&q=80",
+      "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?w=800&q=80",
     ],
   },
   {
@@ -339,6 +404,7 @@ export const worldCupProducts = [
     price: 145000,
     category: "mundial",
     collection: "mundial",
+    size: "S",
     country: "España",
     countryCode: "ESP",
     description: "Edición Mundial 2026. Malla fina con baño rojo intenso y cierre dorado. La furia española en acero.",
@@ -348,6 +414,9 @@ export const worldCupProducts = [
     new: true,
     images: [
       "https://images.unsplash.com/photo-1515562141589-67f0d569b5c9?w=800&q=80",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      "https://images.unsplash.com/photo-1573408301185-9146fe634ad0?w=800&q=80",
+      "https://images.unsplash.com/photo-1611652022419-a9abf6f3edee?w=800&q=80",
     ],
   },
 ];
@@ -362,6 +431,27 @@ export const categories = [
   { id: "cordon", label: "Cordón" },
   { id: "tensores", label: "Tensores" },
 ];
+
+export const filterOptions = {
+  size: [
+    { id: "todos", label: "Todos" },
+    { id: "S", label: "S" },
+    { id: "M", label: "M" },
+    { id: "L", label: "L" },
+  ],
+  color: [
+    { id: "todos", label: "Todos" },
+    { id: "Plata", label: "Plata" },
+    { id: "Negro", label: "Negro" },
+    { id: "Dorado", label: "Dorado" },
+  ],
+  material: [
+    { id: "todos", label: "Todos" },
+    { id: "Acero Inoxidable", label: "Acero Inoxidable" },
+    { id: "Cuero y Acero", label: "Cuero y Acero" },
+    { id: "Acero con baño", label: "Baño PVD" },
+  ],
+};
 
 export const formatPrice = (price) => {
   return new Intl.NumberFormat("es-CO", {

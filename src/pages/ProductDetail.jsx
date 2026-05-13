@@ -1,24 +1,11 @@
-import { useMemo, useEffect } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { IoLogoWhatsapp } from 'react-icons/io5'
+import { FiInfo, FiX } from 'react-icons/fi'
 import products, { formatPrice, getWhatsAppLink, worldCupProducts } from '../data/products.js'
 
 const allProducts = [...products, ...worldCupProducts]
-
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-}
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } },
-}
 
 function RelatedCard({ product }) {
   return (
@@ -47,11 +34,119 @@ function RelatedCard({ product }) {
   )
 }
 
+function BentoGallery({ images, name }) {
+  return (
+    <div className="grid grid-cols-2 gap-1 md:gap-2">
+      {/* Large main image */}
+      <div className="col-span-2 aspect-[4/3] overflow-hidden bg-gray-800">
+        <img
+          src={images[0]}
+          alt={name}
+          className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+        />
+      </div>
+      {/* Secondary images */}
+      {images.slice(1, 4).map((img, i) => (
+        <div
+          key={i}
+          className={`overflow-hidden bg-gray-800 ${
+            i === 0 ? 'col-span-1 aspect-square' : i === 1 ? 'col-span-1 aspect-square' : 'col-span-2 aspect-[21/9]'
+          }`}
+        >
+          <img
+            src={img}
+            alt={`${name} - ${i + 2}`}
+            className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function InfoSheet({ product, onClose }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end md:items-center justify-center"
+      onClick={onClose}
+    >
+      <motion.div
+        initial={{ y: '100%' }}
+        animate={{ y: 0 }}
+        exit={{ y: '100%' }}
+        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+        onClick={e => e.stopPropagation()}
+        className="bg-gray-950 w-full md:max-w-lg md:rounded-lg border border-white/10 max-h-[80vh] overflow-y-auto"
+      >
+        <div className="flex items-center justify-between p-4 border-b border-white/10 sticky top-0 bg-gray-950">
+          <h3 className="text-sm tracking-[0.15em] uppercase text-white">Detalles del producto</h3>
+          <button onClick={onClose} className="text-gray-400 hover:text-white transition-colors">
+            <FiX size={20} />
+          </button>
+        </div>
+
+        <div className="p-6 flex flex-col gap-6">
+          <div>
+            <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 mb-2">Descripción</p>
+            <p className="text-sm text-gray-300 leading-relaxed">{product.description}</p>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 mb-1">Material</p>
+              <p className="text-sm text-white">{product.material}</p>
+            </div>
+            <div>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 mb-1">Color</p>
+              <p className="text-sm text-white">{product.color}</p>
+            </div>
+            <div>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 mb-1">Tamaño</p>
+              <p className="text-sm text-white">{product.size}</p>
+            </div>
+            <div>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 mb-1">Categoría</p>
+              <p className="text-sm text-white capitalize">{product.category}</p>
+            </div>
+          </div>
+
+          {product.country && (
+            <div>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 mb-1">Edición</p>
+              <p className="text-sm text-white">Mundial 2026 — {product.country}</p>
+            </div>
+          )}
+
+          <div>
+            <p className="text-[10px] tracking-[0.2em] uppercase text-gray-500 mb-1">Envío</p>
+            <p className="text-sm text-gray-300">Envío a todo Colombia</p>
+          </div>
+        </div>
+      </motion.div>
+    </motion.div>
+  )
+}
+
 export default function ProductDetail() {
   const { slug } = useParams()
+  const [showInfo, setShowInfo] = useState(false)
+  const [showFixedBar, setShowFixedBar] = useState(false)
+  const ctaRef = useRef(null)
 
   useEffect(() => {
     window.scrollTo(0, 0)
+  }, [slug])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => setShowFixedBar(!entry.isIntersecting),
+      { threshold: 0 }
+    )
+    if (ctaRef.current) observer.observe(ctaRef.current)
+    return () => observer.disconnect()
   }, [slug])
 
   const product = allProducts.find((p) => p.slug === slug)
@@ -59,7 +154,6 @@ export default function ProductDetail() {
   const relatedProducts = useMemo(() => {
     if (!product) return []
     const others = allProducts.filter((p) => p.id !== product.id)
-    // Shuffle and take 4
     return [...others].sort(() => Math.random() - 0.5).slice(0, 4)
   }, [product])
 
@@ -78,7 +172,7 @@ export default function ProductDetail() {
   }
 
   return (
-    <div className="pt-24 bg-gray-950 min-h-screen">
+    <div className="pt-20 bg-gray-950 min-h-screen">
       {/* Breadcrumb */}
       <div className="px-4 md:px-8 py-4">
         <p className="text-xs text-gray-500 tracking-wide">
@@ -90,81 +184,107 @@ export default function ProductDetail() {
         </p>
       </div>
 
-      {/* Main: two columns */}
-      <div className="md:grid md:grid-cols-2 gap-0">
-        {/* Left: Image */}
-        <div className="aspect-[3/4] md:aspect-auto md:h-[calc(100vh-6rem)] md:sticky md:top-24 bg-gray-800 overflow-hidden">
-          <motion.img
-            src={product.images[0]}
-            alt={product.name}
-            className="w-full h-full object-cover"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6 }}
-          />
+      {/* Name + Price (visible at top on all screens) */}
+      <div className="px-4 md:px-8 pb-4">
+        <h1 className="text-2xl md:text-4xl font-light tracking-wide text-white">
+          {product.name}
+        </h1>
+        <p className="text-lg text-gray-500 mt-2">
+          {formatPrice(product.price)}
+        </p>
+      </div>
+
+      {/* Desktop layout: two columns */}
+      <div className="md:grid md:grid-cols-5 gap-0">
+        {/* Left: Bento Gallery (3 cols on desktop) */}
+        <div className="md:col-span-3 px-4 md:pl-8 md:pr-4">
+          <BentoGallery images={product.images} name={product.name} />
         </div>
 
-        {/* Right: Product info */}
-        <motion.div
-          className="p-8 md:p-16 flex flex-col justify-center"
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-        >
-          <motion.h1
-            variants={itemVariants}
-            className="text-3xl md:text-4xl font-light tracking-wide text-white"
-          >
-            {product.name}
-          </motion.h1>
+        {/* Right: Product info (2 cols on desktop, hidden on mobile until sheet) */}
+        <div className="hidden md:flex md:col-span-2 p-8 md:p-12 flex-col justify-start sticky top-24 self-start">
+          <div className="w-12 h-px bg-white/30 mb-8" />
 
-          <motion.p
-            variants={itemVariants}
-            className="text-lg text-gray-500 mt-4"
-          >
-            {formatPrice(product.price)}
-          </motion.p>
-
-          <motion.div
-            variants={itemVariants}
-            className="w-12 h-px bg-white/30 my-8"
-          />
-
-          <motion.p
-            variants={itemVariants}
-            className="text-sm text-gray-400 leading-relaxed"
-          >
+          <p className="text-sm text-gray-400 leading-relaxed">
             {product.description}
-          </motion.p>
+          </p>
 
-          {/* Details */}
-          <motion.div variants={itemVariants} className="mt-8 flex flex-col gap-2">
-            <p className="text-xs text-gray-500 tracking-wide uppercase">
-              Material: {product.material}
-            </p>
-            <p className="text-xs text-gray-500 tracking-wide uppercase">
-              Color: {product.color}
-            </p>
-          </motion.div>
+          <div className="mt-8 flex flex-col gap-3">
+            <div className="flex justify-between border-b border-white/5 pb-2">
+              <span className="text-xs text-gray-500 tracking-wide uppercase">Material</span>
+              <span className="text-xs text-white">{product.material}</span>
+            </div>
+            <div className="flex justify-between border-b border-white/5 pb-2">
+              <span className="text-xs text-gray-500 tracking-wide uppercase">Color</span>
+              <span className="text-xs text-white">{product.color}</span>
+            </div>
+            <div className="flex justify-between border-b border-white/5 pb-2">
+              <span className="text-xs text-gray-500 tracking-wide uppercase">Tamaño</span>
+              <span className="text-xs text-white">{product.size}</span>
+            </div>
+            {product.country && (
+              <div className="flex justify-between border-b border-white/5 pb-2">
+                <span className="text-xs text-gray-500 tracking-wide uppercase">Edición</span>
+                <span className="text-xs text-white">Mundial 2026 — {product.country}</span>
+              </div>
+            )}
+          </div>
 
-          {/* CTA */}
-          <motion.div variants={itemVariants} className="mt-12">
-            <motion.a
+          {/* Desktop CTA */}
+          <div className="mt-10" ref={ctaRef}>
+            <a
               href={getWhatsAppLink(product)}
               target="_blank"
               rel="noopener noreferrer"
               className="w-full bg-white text-black py-4 text-sm tracking-[0.2em] uppercase flex items-center justify-center gap-3 hover:bg-gray-200 transition-colors duration-200"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
             >
               <IoLogoWhatsapp size={18} />
               Consultar por WhatsApp
-            </motion.a>
+            </a>
             <p className="text-[10px] text-gray-400 tracking-wider uppercase text-center mt-4">
               Envío a todo Colombia
             </p>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile: inline CTA (used for intersection observer) */}
+      <div className="md:hidden px-4 mt-6" ref={ctaRef}>
+        <a
+          href={getWhatsAppLink(product)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="w-full bg-white text-black py-4 text-sm tracking-[0.2em] uppercase flex items-center justify-center gap-3"
+        >
+          <IoLogoWhatsapp size={18} />
+          Consultar por WhatsApp
+        </a>
+      </div>
+
+      {/* Mobile: Product details section */}
+      <div className="md:hidden px-4 py-8">
+        <div className="w-12 h-px bg-white/30 mb-6" />
+        <p className="text-sm text-gray-400 leading-relaxed mb-6">{product.description}</p>
+        <div className="flex flex-col gap-3">
+          <div className="flex justify-between border-b border-white/5 pb-2">
+            <span className="text-xs text-gray-500 tracking-wide uppercase">Material</span>
+            <span className="text-xs text-white">{product.material}</span>
+          </div>
+          <div className="flex justify-between border-b border-white/5 pb-2">
+            <span className="text-xs text-gray-500 tracking-wide uppercase">Color</span>
+            <span className="text-xs text-white">{product.color}</span>
+          </div>
+          <div className="flex justify-between border-b border-white/5 pb-2">
+            <span className="text-xs text-gray-500 tracking-wide uppercase">Tamaño</span>
+            <span className="text-xs text-white">{product.size}</span>
+          </div>
+          {product.country && (
+            <div className="flex justify-between border-b border-white/5 pb-2">
+              <span className="text-xs text-gray-500 tracking-wide uppercase">Edición</span>
+              <span className="text-xs text-white">Mundial 2026 — {product.country}</span>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Related products */}
@@ -178,6 +298,36 @@ export default function ProductDetail() {
           ))}
         </div>
       </section>
+
+      {/* Mobile Fixed Bottom Bar */}
+      {showFixedBar && (
+        <motion.div
+          initial={{ y: 100 }}
+          animate={{ y: 0 }}
+          className="fixed bottom-0 left-0 right-0 z-50 md:hidden bg-gray-950/95 backdrop-blur-md border-t border-white/10 px-4 py-3 flex gap-2"
+        >
+          <a
+            href={getWhatsAppLink(product)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex-1 bg-white text-black py-3 text-xs tracking-[0.15em] uppercase flex items-center justify-center gap-2"
+          >
+            <IoLogoWhatsapp size={16} />
+            Consultar
+          </a>
+          <button
+            onClick={() => setShowInfo(true)}
+            className="w-12 flex items-center justify-center border border-white/20 text-white"
+          >
+            <FiInfo size={18} />
+          </button>
+        </motion.div>
+      )}
+
+      {/* Info Sheet Modal */}
+      {showInfo && (
+        <InfoSheet product={product} onClose={() => setShowInfo(false)} />
+      )}
     </div>
   )
 }

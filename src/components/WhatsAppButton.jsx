@@ -1,10 +1,16 @@
 import { motion } from "framer-motion";
+import { useLocation } from "react-router-dom";
 import { IoLogoWhatsapp } from "react-icons/io5";
 
 const WA_URL =
   "https://wa.me/573001234567?text=Hola%2C%20quiero%20información%20sobre%20sus%20brazaletes";
 
 export default function WhatsAppButton() {
+  const { pathname } = useLocation();
+  const isProductPage = pathname.includes("/producto/");
+
+  if (isProductPage) return null;
+
   return (
     <motion.a
       href={WA_URL}
