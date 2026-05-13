@@ -1,15 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import { FiChevronDown } from 'react-icons/fi'
 import heroVideo from '../assets/videos/hero.mp4'
-import products, { formatPrice } from '../data/products.js'
-import { worldCupProducts } from '../data/products.js'
+import { formatPrice } from '../data/products.js'
+import { useProducts, useWorldCupProducts } from '../hooks/useProducts.js'
 
 const rotatingPhrases = ['Elegancia Atemporal', 'Diseño Esencial', 'Hecho para Ti']
-
-const featuredProducts = products.filter((p) => p.featured)
 
 // ─── Section 2 wrapper ─────────────────────────────────────────────────────
 function BrandStatement() {
@@ -96,6 +94,7 @@ function WorldCupCard({ product, index }) {
 function WorldCupSection() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, amount: 0.15 })
+  const { products: wcProducts } = useWorldCupProducts()
 
   return (
     <section ref={ref} className="py-20 md:py-28 bg-gray-950 overflow-hidden">
@@ -125,7 +124,7 @@ function WorldCupSection() {
 
       <div className="pl-6 md:pl-12">
         <div className="flex gap-3 overflow-x-auto overflow-y-hidden snap-x snap-mandatory pb-6 scrollbar-none pr-6">
-          {worldCupProducts.map((product, index) => (
+          {wcProducts.map((product, index) => (
             <WorldCupCard key={product.id} product={product} index={index} />
           ))}
         </div>
@@ -157,6 +156,8 @@ function WorldCupSection() {
 
 // ─── Home ───────────────────────────────────────────────────────────────────
 export default function Home() {
+  const { products } = useProducts()
+  const featuredProducts = useMemo(() => products.filter(p => p.featured), [products])
   const [phraseIndex, setPhraseIndex] = useState(0)
 
   useEffect(() => {

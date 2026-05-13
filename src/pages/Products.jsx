@@ -2,9 +2,11 @@ import { useState, useMemo, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { FiSliders, FiX } from 'react-icons/fi'
-import products, { categories, filterOptions, formatPrice } from '../data/products.js'
+import { categories, filterOptions, formatPrice } from '../data/products.js'
+import { useProducts } from '../hooks/useProducts.js'
 
 export default function Products() {
+  const { products } = useProducts()
   const [activeCategory, setActiveCategory] = useState('todos')
   const [filters, setFilters] = useState({ size: 'todos', color: 'todos', material: 'todos' })
   const [showFilters, setShowFilters] = useState(false)

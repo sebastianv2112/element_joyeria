@@ -1,11 +1,10 @@
-import { useState, useMemo, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { IoLogoWhatsapp } from 'react-icons/io5'
 import { FiInfo, FiX } from 'react-icons/fi'
-import products, { formatPrice, getWhatsAppLink, worldCupProducts } from '../data/products.js'
-
-const allProducts = [...products, ...worldCupProducts]
+import { formatPrice, getWhatsAppLink } from '../data/products.js'
+import { useProduct, useRelatedProducts } from '../hooks/useProducts.js'
 
 function RelatedCard({ product }) {
   return (
@@ -132,6 +131,8 @@ function InfoSheet({ product, onClose }) {
 
 export default function ProductDetail() {
   const { slug } = useParams()
+  const { product, loading } = useProduct(slug)
+  const { products: relatedProducts } = useRelatedProducts(product?.id)
   const [showInfo, setShowInfo] = useState(false)
   const [showFixedBar, setShowFixedBar] = useState(false)
   const ctaRef = useRef(null)
@@ -148,14 +149,6 @@ export default function ProductDetail() {
     if (ctaRef.current) observer.observe(ctaRef.current)
     return () => observer.disconnect()
   }, [slug])
-
-  const product = allProducts.find((p) => p.slug === slug)
-
-  const relatedProducts = useMemo(() => {
-    if (!product) return []
-    const others = allProducts.filter((p) => p.id !== product.id)
-    return [...others].sort(() => Math.random() - 0.5).slice(0, 4)
-  }, [product])
 
   if (!product) {
     return (
