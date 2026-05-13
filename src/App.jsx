@@ -9,7 +9,7 @@ import WhatsAppButton from './components/WhatsAppButton'
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/element_joyeria">
       <Navbar />
       <main>
         <Routes>
